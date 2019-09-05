@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart'; // Google 风格
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_shop/ui/page/case/getResponse.dart';
 import 'package:flutter_shop/ui/page/home/home_page.dart';
 import 'package:flutter_shop/ui/page/my/my_page.dart';
 import 'package:flutter_shop/ui/page/shop/shop_page.dart';
 import 'package:flutter_shop/ui/page/shopcar/shop_car.dart';//ios 风格
+
 
 class Indepage extends StatefulWidget {
   IndepageState createState() => IndepageState();
@@ -36,6 +38,7 @@ class IndepageState extends State<Indepage> {
     ShopPage(),
     ShopCarPage(),
     MyPage()
+    //CheckRoom()
   ];
 
   //当前页面下标
