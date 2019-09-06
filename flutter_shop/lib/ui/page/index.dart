@@ -5,6 +5,7 @@ import 'package:flutter_shop/ui/page/home/home_page.dart';
 import 'package:flutter_shop/ui/page/my/my_page.dart';
 import 'package:flutter_shop/ui/page/shop/shop_page.dart';
 import 'package:flutter_shop/ui/page/shopcar/shop_car.dart';//ios 风格
+import 'package:flutter_screenutil/flutter_screenutil.dart';//设备适配
 
 
 class Indepage extends StatefulWidget {
@@ -33,7 +34,7 @@ class IndepageState extends State<Indepage> {
   ];
 
   //主页面列表
-  final List pagelist = [
+  final List<Widget> pagelist = [
     HomePage(),
     ShopPage(),
     ShopCarPage(),
@@ -55,6 +56,10 @@ class IndepageState extends State<Indepage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(width: 1080,height: 2028)..init(context);
+    // print('设备宽度：${ScreenUtil.screenWidth}');
+    // print('设备高度: ${ScreenUtil.screenHeight}');
+    // print('设备密度: ${ScreenUtil.pixelRatio}');
     return Scaffold(
       bottomNavigationBar:BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -66,7 +71,10 @@ class IndepageState extends State<Indepage> {
           });
         },
       ),
-      body: pagelist[currentindex],
+      body: IndexedStack(
+        index: currentindex,
+        children: pagelist,
+      ),
     );
   }
 }

@@ -28,7 +28,7 @@ var menueDataJson = {
     {
       "jump_url": "",
       "pic_url": "https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp",
-      "title": "外卖"
+      "title": "外卖打电话"
     },
     {
       "jump_url": "",
@@ -153,7 +153,9 @@ var recommendJson = {
       "subtitle_color": "#fd4f51",
       "tag_color": "#d8996f",
       "title": "聚划算",
-      "title_color": "#333333"
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#fcf8f4",
@@ -164,9 +166,11 @@ var recommendJson = {
       "tag_color": "#d8996f",
       "tag_img": "",
       "tag_mode": 1,
-      "tag_text": "",
-      "title": "",
-      "title_color": "#333333"
+      "tag_text": "牛奶",
+      "title": "牛奶",
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#ffffff",
@@ -177,7 +181,9 @@ var recommendJson = {
       "subtitle_color": "#ff4d7c",
       "tag_color": "#d8996f",
       "title": "淘宝直播",
-      "title_color": "#333333"
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#ffffff",
@@ -187,8 +193,10 @@ var recommendJson = {
       "subtitle": "",
       "subtitle_color": "#fd4f51",
       "tag_color": "#d8996f",
-      "title": "",
-      "title_color": "#333333"
+      "title": "卫生纸",
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     //
     {
@@ -200,7 +208,9 @@ var recommendJson = {
       "subtitle_color": "#f8003d",
       "tag_color": "#d8996f",
       "title": "淘抢购",
-      "title_color": "#333333"
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#fcf8f4",
@@ -214,7 +224,9 @@ var recommendJson = {
       "tag_mode": 1,
       "tag_text": "",
       "title": "天天特价",
-      "title_color": "#333333"
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#ffffff",
@@ -225,7 +237,9 @@ var recommendJson = {
       "subtitle_color": "#56beff",
       "tag_color": "#d8996f",
       "title": "有好货",
-      "title_color": "#333333"
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#ffffff",
@@ -235,8 +249,10 @@ var recommendJson = {
       "subtitle": "",
       "subtitle_color": "#fd4f51",
       "tag_color": "#d8996f",
-      "title": "",
-      "title_color": "#333333"
+      "title": "好家具",
+      "title_color": "#333333",
+      "product_priceone":"1200",
+      "product_pricetwo":"2000"
     },
     //
     {
@@ -248,7 +264,10 @@ var recommendJson = {
       "subtitle_color": "#f8a507",
       "tag_color": "#d8996f",
       "title": "每日好店",
-      "title_color": "#333333"
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
+      
     },
     {
       "bg_color": "#ffffff",
@@ -261,8 +280,10 @@ var recommendJson = {
       "tag_img": "",
       "tag_mode": 1,
       "tag_text": "",
-      "title": "",
-      "title_color": "#333333"
+      "title": "智能家居",
+      "title_color": "#333333",
+      "product_priceone":"120",
+      "product_pricetwo":"200"
     },
     {
       "bg_color": "#ffffff",
