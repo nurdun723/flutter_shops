@@ -5,6 +5,9 @@ import 'package:flutter_shop/ui/service/service_api.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';//第三方http插件
 import 'package:flutter_screenutil/flutter_screenutil.dart';//设备适配
 import 'package:url_launcher/url_launcher.dart';//打开网址、发送邮件、拨打电话、以及发送信息功能
+
+
+
 class HomePage extends StatefulWidget {
 
 
@@ -15,7 +18,6 @@ class HomePage extends StatefulWidget {
  * 为了保持页面的状态必须 with AutomaticKeepAliveClientMixin ，而且 bool get wantKeepAlive => true ，必须混入Statefullwidget里面;
  * */ 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
-
 
   String hometxt = '首页内容';
   List littleAdvertisementtxt = headlines;
@@ -34,6 +36,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
      super.initState();
      print('加载页面....');
+
+
+
   }
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
               GridViewClassify(),
               LittleAdvertisement(advertisementlist: littleAdvertisementtxt),
               RecommendProdct(),
-              BigimagesOne()
+              BigimagesOne(),
+              TabbarPageswitching()
             ],
           ),
         )
@@ -345,22 +351,153 @@ class BigimagesOne extends StatelessWidget {
   }
 }
 
-//tab页面切换
-class TabbarWidge extends StatelessWidget{
 
-  
+
+
+class Tabmodel{
+  String title;
+  String subtitle;
+
+  Tabmodel({this.title,this.subtitle});
+}
+
+//tab页面切换
+class TabbarPageswitching extends StatefulWidget {
+
+
+  _TabbarPageswitchingState createState() => _TabbarPageswitchingState();
+}
+
+class _TabbarPageswitchingState extends State<TabbarPageswitching> with TickerProviderStateMixin {
+
+  final List<Tabmodel> tabModels = [];
+  TabController tabController;
+  int currentIndex;
+  int _selectedIndex = 0;
+  List<Widget> tabPages = [];
+  Widget showpage;
+  String keyword;
+
+     // _controller.addListener(_handleTabSelection);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabModels.add(Tabmodel(title: '全部', subtitle: '猜你喜欢'));
+    tabModels.add(Tabmodel(title: '直播', subtitle: '网红推荐'));
+    tabModels.add(Tabmodel(title: '便宜好货', subtitle: '低价抢购'));
+    tabModels.add(Tabmodel(title: '买家秀', subtitle: '购后分享'));
+    tabModels.add(Tabmodel(title: '全球', subtitle: '进口好货'));
+    tabModels.add(Tabmodel(title: '生活', subtitle: '享受生活'));
+    tabModels.add(Tabmodel(title: '母婴', subtitle: '母婴大赏'));
+    tabModels.add(Tabmodel(title: '时尚', subtitle: '时尚好货'));
+
+    for(int i =0;i<tabModels.length;i++){
+      Container tabpage = Container(
+        height: ScreenUtil().setHeight(400),
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child:Text('页面${tabModels[i].title}'),
+            )
+          ],
+        ),
+      );
+      tabPages.add(tabpage);
+    }
+
+    tabController = TabController(vsync: this,length:tabModels.length);
+    tabController.addListener(_changetab(0));
+     
+  }
+
+  _changetab(int index){
+    setState(() {
+      _selectedIndex = index;
+      currentIndex = tabController.index;
+      showpage = tabPages[currentIndex];
+      keyword = tabModels[currentIndex].title;
+    });
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return DefaultTabController(
-      child: TabBar(
-        tabs: <Widget>[
-
+    return Container(
+      child: Column(
+        children: <Widget>[
+          TabBar(
+          controller: tabController,
+          indicatorColor: Colors.transparent,
+          indicatorSize: TabBarIndicatorSize.label,
+          isScrollable: true,
+//          labelColor: KColorConstant.themeColor,
+          labelColor: Color(0xFFfe5100),
+          unselectedLabelColor: Colors.black,
+          labelPadding: EdgeInsets.only(right: 5.0, left: 5.0),
+          onTap: _changetab,
+          tabs: tabModels
+              .map((i) => Container(
+//            margin: const EdgeInsets.all(0 ),
+                    padding: const EdgeInsets.all(0),
+//            width: 30,
+                    height: 44.0,
+                    child: new Tab(
+                        child: Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Text(i.title),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            tabModels.indexOf(i) == currentIndex
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(7),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2),
+                                      color: Color(0xFFfe5100),
+                                      child: Text(
+                                        i.subtitle,
+                                        style: TextStyle(fontSize: 9, color: Colors.white),
+                                      ),
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: Text(
+                                      i.subtitle,
+                                      style: TextStyle(fontSize: 9, color: Color(0xFFb5b6b5)),
+                                    ),
+                                  )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 1,
+                          height: 30,
+                          color: Color(0xFFc9c9ca),
+                        )
+                      ],
+                    )),
+                  ))
+              .toList()),
+              showpage
         ],
       ),
     );
-  }
+  }    
 }
 
 
