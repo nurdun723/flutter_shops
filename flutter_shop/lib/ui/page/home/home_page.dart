@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_shop/ui/common/data/homedata.dart';
 import 'package:flutter_shop/ui/service/service_api.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';//第三方http插件
 import 'package:flutter_screenutil/flutter_screenutil.dart';//设备适配
 import 'package:url_launcher/url_launcher.dart';//打开网址、发送邮件、拨打电话、以及发送信息功能
+import '../../common/data/api.dart';
 
 
 
@@ -22,6 +26,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   String hometxt = '首页内容';
   List littleAdvertisementtxt = headlines;
 
+  int hotpage = 1;
+  List hotgoodsList = [];
+
   @override
   bool get wantKeepAlive => true;
 
@@ -36,10 +43,87 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
      super.initState();
      print('加载页面....');
-
-
-
+      _getHotgoods();
   }
+ 
+  //获取火爆数据
+  Future _getHotgoods() async{
+    await getHomePageHotGoods(hotpage).then((result){
+      print(result);
+      var data = result[0]['Content'];
+      setState(() {
+        hotgoodsList.add(data);
+        hotpage++;
+      });
+      print(hotgoodsList);
+    });
+  }
+
+  //火爆title
+  Widget hotTitle = Container(
+    width: double.infinity,
+    margin: EdgeInsets.only(top: 15),
+    padding: EdgeInsets.all(10),
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(
+          width: 1,
+          color: Colors.black,
+          style: BorderStyle.solid
+        )
+      )
+    ),
+    child: Text('火爆专域'),
+  );
+
+  
+  Widget hotgoodslistWidget(){
+
+    if(hotgoodsList.length != 0){
+      List<Widget> listwidgets = hotgoodsList.map((item){
+        return InkWell(
+          child: Container(
+            color: Colors.grey[300],
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.only(bottom: 8),
+            width:(MediaQuery.of(context).size.width - 16) / 2,
+            child: Column(
+              children: <Widget>[
+                Image.network('http://img10.360buyimg.com/mobilecms/${item['imageurl']}'),
+                Text('${item['warename']}',style:TextStyle(color: Colors.red,fontSize: 14),maxLines: 1,overflow: TextOverflow.clip),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('166',style: TextStyle(color: Colors.black),),
+                    Text('177',style: TextStyle(color: Colors.grey,decoration: TextDecoration.lineThrough),)
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }).toList();
+      return Wrap(
+        spacing: 2,
+        children:listwidgets,
+      );
+    }else{
+      return Text('no....');
+    }
+  } 
+
+  Widget _hotgoods(){
+    return Container(
+      child: Column(
+        children: <Widget>[
+          hotTitle,
+          hotgoodslistWidget()
+        ],
+      ),
+    );
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,22 +131,21 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
         title: Text('首页'),
         elevation: 0,
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
+      body: EasyRefresh(
+        child: ListView(
+          children:<Widget>[
               SwiperDemo(),
               GridViewClassify(),
               LittleAdvertisement(advertisementlist: littleAdvertisementtxt),
               RecommendProdct(),
               BigimagesOne(),
-              TabbarPageswitching()
+              //TabbarPageswitching()
+              _hotgoods()
             ],
           ),
-        )
-      ),
+          onLoad:_getHotgoods,
+        ),
+      backgroundColor: Colors.white60,
     );
   }
 }
@@ -501,5 +584,27 @@ class _TabbarPageswitchingState extends State<TabbarPageswitching> with TickerPr
 }
 
 
+//火爆热区
+class HomePageHotGoods extends StatefulWidget {
+  HomePageHotGoods({Key key}) : super(key: key);
 
+  _HomePageHotGoodsState createState() => _HomePageHotGoodsState();
+}
+
+class _HomePageHotGoodsState extends State<HomePageHotGoods> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      height: 200,
+      margin: EdgeInsets.only(top: 20,bottom: 20),
+       child: Text('火爆去'),
+    );
+  }
+}
 

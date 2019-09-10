@@ -29,6 +29,7 @@ dependencies:
   flutter_screenutil: ^0.6.0
   #一款支持android和IOS的插件，其中包含打开网址、发送邮件、拨打电话、以及发送信息功能
   url_launcher: ^5.1.2
+  flutter_easyrefresh: ^2.0.4
 
 dev_dependencies:
   flutter_test:
