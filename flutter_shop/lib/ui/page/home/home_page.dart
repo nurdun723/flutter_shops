@@ -144,6 +144,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
             ],
           ),
           onLoad:_getHotgoods,
+          footer: ClassicalFooter(
+            loadingText: '加载中...',
+            showInfo: false,
+            //enableHapticFeedback: false,
+            enableInfiniteLoad: false,
+          ),
         ),
       backgroundColor: Colors.white60,
     );

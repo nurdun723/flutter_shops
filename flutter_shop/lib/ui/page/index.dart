@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // Google 风格
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_shop/ui/page/case/getResponse.dart';
+import 'package:flutter_shop/ui/page/home/Localization.dart';
 import 'package:flutter_shop/ui/page/home/home_page.dart';
 import 'package:flutter_shop/ui/page/my/my_page.dart';
 import 'package:flutter_shop/ui/page/shop/shop_page.dart';
@@ -8,11 +9,11 @@ import 'package:flutter_shop/ui/page/shopcar/shop_car.dart';//ios 风格
 import 'package:flutter_screenutil/flutter_screenutil.dart';//设备适配
 
 
-class Indepage extends StatefulWidget {
+class Indexpage extends StatefulWidget {
   IndepageState createState() => IndepageState();
 }
 
-class IndepageState extends State<Indepage> {
+class IndepageState extends State<Indexpage> {
   //底部导航列表
   final List<BottomNavigationBarItem> navigationbaritem = [
     BottomNavigationBarItem(
@@ -35,7 +36,7 @@ class IndepageState extends State<Indepage> {
 
   //主页面列表
   final List<Widget> pagelist = [
-    HomePage(),
+    LocalizationHome(),
     ShopPage(),
     ShopCarPage(),
     MyPage()

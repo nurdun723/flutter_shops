@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_shop/ui/common/localization/aplicationLocalization.dart';
 import 'package:flutter_shop/ui/page/index.dart';
 
 void main() => runApp(MyApp());
@@ -26,18 +28,66 @@ void main() => runApp(MyApp());
 //   }
 // }
 
+
+//切换语言
+class Changelocalizations extends StatefulWidget {
+  final Widget child;
+  Changelocalizations({Key key,this.child}) : super(key: key);
+
+  State<Changelocalizations> createState() => _ChangelocalizationsState();
+}
+
+class _ChangelocalizationsState extends State<Changelocalizations> {
+  Locale _locale = const Locale('zh','CH');
+
+  changelocal(Locale locale){
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Localizations.override(
+      context: context,
+      locale: _locale,
+      child: widget.child,
+    );
+  }
+}
+
+
+GlobalKey<_ChangelocalizationsState> changelocalizationskey = GlobalKey<_ChangelocalizationsState>();
+
 class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: MaterialApp(
+        onGenerateTitle: (context){
+          return LocalizationCenter.of(context).taskTitle;
+        },
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          LocalizationDelegetedCenter.delegate
+        ],
+        supportedLocales: [
+          const Locale('zh','CH'),//中文简体
+          const Locale('en','US'),//美国英语
+          
+        ],
         debugShowCheckedModeBanner: false,
-        title: 'Nisa 商城',
         theme: ThemeData(
           primaryColor: Colors.blue
         ),
-        home: Indepage(),
+        home: Builder(builder: (context){
+          return Changelocalizations(
+            key: changelocalizationskey,
+            child: Indexpage(),
+          );
+        },),
       ),
     );
   }
